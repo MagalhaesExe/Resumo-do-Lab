@@ -9,6 +9,8 @@ A **computação em nuvem (cloud computing)** é o modelo de uso de recursos de 
 - 📈 **Elasticidade** para ampliar ou reduzir recursos conforme a demanda  
 - 💳 **Pagamento sob demanda** (*pay-as-you-go*)  
 - 🔒 **Gerenciamento simplificado**, já que o provedor cuida da infraestrutura  
+- ⚡ **Escalabilidade** rápida, sem necessidade de aquisição de hardware físico  
+- 📊 **Alta disponibilidade e tolerância a falhas** com replicação de dados e redundância  
 
 ---
 
@@ -20,9 +22,14 @@ A **computação em nuvem (cloud computing)** é o modelo de uso de recursos de 
 ---
 
 ## ⚙️ Modelos de Serviço
-- 🖥️ **IaaS** (*Infrastructure as a Service*) → máquinas virtuais, servidores e redes  
-- 💻 **PaaS** (*Platform as a Service*) → ambiente pronto para desenvolver e implantar aplicações  
-- 📦 **SaaS** (*Software as a Service*) → aplicativos prontos acessados pela internet (ex.: Office 365, Google Drive)  
+
+| **Serviço** | **O que oferece** | **Exemplos** | **Uso comum** |
+|-------------|-----------------|-------------|---------------|
+| 🖥️ **IaaS** (*Infrastructure as a Service*) | Máquinas virtuais, armazenamento, redes, servidores | AWS EC2, Azure VMs, Google Compute Engine | Hospedagem de sites, bancos de dados, ambientes de teste e desenvolvimento |
+| 💻 **PaaS** (*Platform as a Service*) | Ambiente completo para desenvolver, testar e implantar aplicações | Heroku, Google App Engine, Azure App Service | Desenvolvimento ágil de aplicativos, APIs, microserviços |
+| 📦 **SaaS** (*Software as a Service*) | Aplicativos prontos para uso via internet | Microsoft 365, Google Workspace, Salesforce | E-mail corporativo, colaboração, CRM, ferramentas de produtividade |
+| 🗄️ **FaaS / Serverless** (*Function as a Service*) | Execução de funções sem se preocupar com servidores | AWS Lambda, Azure Functions | Automação de processos, execução de funções sob demanda |
+| 🛠️ **DaaS** (*Desktop as a Service*) | Área de trabalho virtual acessível remotamente | Amazon WorkSpaces, Citrix DaaS | Trabalho remoto, ambientes seguros para colaboradores externos |
 
 ---
 
@@ -37,4 +44,13 @@ A **computação em nuvem (cloud computing)** é o modelo de uso de recursos de 
 | **OpEx fixo** | Licença mensal SaaS (ex.: Microsoft 365) | Previsibilidade de custos | Paga mesmo sem uso intenso |
 | **Consumo (pay-as-you-go)** | AWS EC2, Azure VMs | Flexibilidade, paga só pelo uso | Difícil prever custos em alta demanda |
 
+---
 
+## 🌟 Benefícios da Computação em Nuvem
+- 🚀 **Agilidade e inovação** → permite testar e lançar novos serviços rapidamente  
+- 💰 **Redução de custos** → elimina investimento em infraestrutura física e manutenção  
+- 🔄 **Escalabilidade elástica** → ajusta recursos automaticamente conforme a demanda  
+- 🔒 **Segurança aprimorada** → provedores investem em criptografia, backups e monitoramento  
+- 🌍 **Acesso global** → usuários podem acessar serviços de qualquer lugar do mundo  
+- 🛠️ **Atualizações automáticas** → softwares e plataformas são mantidos atualizados pelo provedor  
+- 📊 **Análise de dados avançada** → integração com serviços de Big Data e IA  
