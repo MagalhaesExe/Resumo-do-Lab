@@ -54,3 +54,67 @@ A **computação em nuvem (cloud computing)** é o modelo de uso de recursos de 
 - 🌍 **Acesso global** → usuários podem acessar serviços de qualquer lugar do mundo  
 - 🛠️ **Atualizações automáticas** → softwares e plataformas são mantidos atualizados pelo provedor  
 - 📊 **Análise de dados avançada** → integração com serviços de Big Data e IA  
+
+# 🏗️ Componentes de Arquitetura do Azure
+
+## 1. Regiões
+- Conjuntos de datacenters implantados em uma área geográfica específica.  
+- Mais de **60 regiões globais** cobrindo mais de 140 países.  
+- Reduzem **latência**, preservam a **residência dos dados** e permitem **escalabilidade**.  
+
+---
+
+## 2. Zonas de Disponibilidade
+- **Datacenters independentes** dentro de uma região, com energia, rede e refrigeração próprias.  
+- Interligados por **rede de fibra óptica privada**.  
+- Garantem **alta disponibilidade** e **tolerância a falhas**.  
+
+---
+
+## 3. Pares de Regiões
+- Regiões sempre são **emparelhadas** (mínimo **300 milhas de distância**).  
+- Permitem **replicação automática**, **recuperação priorizada** e **atualizações sequenciais**.  
+
+---
+
+## 4. Regiões Soberanas
+- Exemplo: **Azure Government (EUA)**.  
+- **Isoladas fisicamente** do Azure público.  
+- Foco em **conformidade legal** e **segurança crítica**.  
+
+---
+
+## 5. Recursos do Azure
+- Unidades fundamentais como **VMs, armazenamento, redes e serviços de aplicação**.  
+- São os **blocos básicos** para criar soluções em nuvem.  
+
+---
+
+## 6. Grupos de Recursos
+- **Contêineres lógicos** para organizar e gerenciar recursos.  
+- Um recurso só pode estar em **um grupo por vez**, mas grupos podem conter recursos de várias regiões.  
+- Facilitam **monitoramento, políticas e controle de acesso**.  
+
+---
+
+## 7. Assinaturas do Azure
+- Delimitam **escopo de cobrança e permissões**.  
+- Permitem **relatórios de faturamento separados** e **controle de acesso granular**.  
+- Exemplo: uma assinatura para **produção** e outra para **testes**.  
+
+---
+
+## 8. Grupos de Gerenciamento
+- Camada **acima das assinaturas**.  
+- Permitem aplicar **políticas e segurança** em várias assinaturas ao mesmo tempo.  
+- Muito usados por **grandes empresas e multinacionais**.  
+
+---
+
+## 📌 Estrutura Hierárquica do Azure
+1. **Recursos** →  
+2. **Grupos de Recursos** →  
+3. **Assinaturas** →  
+4. **Grupos de Gerenciamento**  
+
+🔹 Essa hierarquia garante **organização, governança e escalabilidade** dentro do Azure.  
