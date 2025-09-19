@@ -118,3 +118,159 @@ A **computação em nuvem (cloud computing)** é o modelo de uso de recursos de 
 4. **Grupos de Gerenciamento**  
 
 🔹 Essa hierarquia garante **organização, governança e escalabilidade** dentro do Azure.  
+
+---
+
+## O que é computação em rede
+
+“Computação em rede” refere-se ao uso de vários dispositivos de computação interconectados por meio de redes (físicas ou sem fio) para permitir:
+
+- troca de dados entre dispositivos;
+- compartilhamento de recursos (impressoras, arquivos, servidores, etc.);
+- execução de aplicações de forma distribuída;
+- colaboração remota.
+Em essência, trata-se de fenômenos onde não há apenas um único computador operando de forma isolada, mas um conjunto trabalhando de modo cooperativo sobre uma infraestrutura de rede.
+---
+
+## O que são Azure Virtual Machines
+
+As Azure VMs são instâncias de servidores virtuais fornecidas pela Microsoft na nuvem, que permitem executar sistemas operacionais (Windows, Linux, etc.), aplicações, bancos de dados, serviços de backend etc., sem precisar manter hardware físico próprio.
+Você escolhe “o tamanho” da VM (vCPU, RAM, armazenamento, etc.), o sistema operacional, e paga pelo uso desses recursos.
+
+---
+
+## O que é um Conjunto de Disponibilidade (Availability Set)
+
+Um *Availability Set* (conjunto de disponibilidade) é um agrupamento lógico de VMs dentro de um mesmo datacenter do Azure que tem como objetivo reduzir o risco de que falhas ou manutenções afetem todas as VMs de uma aplicação ao mesmo tempo. 
+Ele é usado para garantir alta disponibilidade de aplicações, atendendo ao SLA de **99,95%** para VMs (desde que haja duas ou mais instâncias dentro do conjunto de disponibilidade).
+
+---
+
+## Como funciona: domínios de falha e domínios de atualização
+
+Dois conceitos centrais no Availability Set:
+
+| Conceito | O que significa | Por que importa |
+| --- | --- | --- |
+| **Domínio de Falha** (*Fault Domain*, FD) | Refere-se a um conjunto físico de hardware que compartilha infraestrutura comum: racks, alimentação elétrica, switches de rede. Se desse hardware vier a falhar, todas as VMs que estiverem no mesmo domínio de falha poderão ser afetadas. | Distribuir as VMs em diferentes domínios de falha ajuda a evitar que uma falha de hardware ou de energia derrube todas as VMs de uma aplicação ao mesmo tempo. |
+| **Domínio de Atualização** (*Update Domain*, UD) | Refere-se a conjuntos de VMs que podem ser reiniciados ou atualizados pelo Azure ao mesmo tempo durante manutenções planejadas. Cada domínio de atualização define quais VMs vão “parar” juntas em uma manutenção. | Ao repartir VMs em diferentes domínios de atualização, o Azure garante que nem todas serão afetadas por uma manutenção de uma só vez. Só um update domain é reiniciado por vez.|
+
+---
+
+## Azure Virtual Desktop (AVD)
+
+**O que é**
+
+- Serviço de virtualização de desktops e apps rodando na nuvem Azure. Permite que usuários acessem ambientes Windows (desktop completo) ou aplicações específicas remotamente, de qualquer dispositivo.
+- Oferece opções de desktop com sessão única ou multi-sessão.
+
+**Principais funcionalidades**
+
+- Publicação de aplicativos ou desktops (RemoteApp / full desktop).
+- Imagens personalizadas, pools de hosts, workspaces gerenciados.
+- Otimizações para Microsoft 365, suporte para Windows 10/11 multi-sessão, o que reduz custos de licenciamento/infraestrutura.
+- Autoscaling, para ajustar capacidade conforme demanda.
+
+**Vantagens**
+
+- Facilita trabalho remoto e mobilidade, com segurança centralizada.
+- Menor gerenciamento de hardware local.
+- Economias quando se utiliza sessão multi-usuário, ou se aproveita licenças existentes.
+- Experiência de usuário mais padronizada.
+
+**Quando usar**
+
+- Organizações que precisam prover desktops remotos para funcionários – home office, suporte remoto, terceirizados.
+- Aplicações legadas que exigem ambiente Windows específico.
+- Casos em que segurança, controle e conformidade são rígidos (pois os ativos ficam no Azure).
+
+**Limitações / Considerações**
+
+- Há custo contínuo com VMs, armazenamento, rede. Apesar de autoscaling, dimensionamento incorreto pode gerar desperdício.
+- Dependência de conectividade de rede e latência, especialmente para usuários remotos distantes.
+- Gerenciamento de perfis, aplicativos, compatibilidade etc precisa ser bem planejado.
+
+---
+
+## Containers no Azure
+
+**O que são / exemplos de serviços**
+
+- Contêineres são unidades leves de empacotamento de aplicações (app + dependências), que compartilham o kernel do sistema, mas rodam isoladas umas das outras. 
+- Azure oferece vários serviços de containers, como:
+    
+    • **Azure Kubernetes Service (AKS)** — orquestração de containers em escala. 
+    
+    • **Azure Container Instances (ACI)** — rodar containers rapidamente, sem precisar gerenciar VMs ou clusters. 
+    
+    • **Azure Container Apps** — abordagem serverless para containers, microserviços, apps modernos.
+  
+    • Outros: Web App for Containers, OpenShift no Azure, registro de imagens (Container Registry) etc. 
+    
+
+**Principais vantagens**
+
+- Leveza: containers iniciam rápido, consomem menos recursos comparados a VMs, já que não carregam sistema operacional completo. 
+- Escalabilidade ágil: podem aumentar ou reduzir instâncias de forma dinâmica, útil para demandas variáveis ou picos.
+- Portabilidade: imagens containerizadas permitem mover aplicações entre ambientes com mais facilidade (desenvolvimento, teste, produção).
+- Menor overhead operacional: menos gerência de OS guest, menos patches de sistema operacional inteiro (dependendo do serviço usado) etc.
+
+**Quando usar**
+
+- Aplicações microserviços ou arquiteturas modernas.
+- Workloads que precisam responder rapidamente a variações de carga.
+- Processamento de dados em lote, tarefas curtas/efêmeras ou funções event-driven (triggered).
+- Para acelerar entrega de aplicações, promover automação CI/CD, atualizações frequentes.
+
+**Desafios / limitações**
+
+- Segurança: embora haja bastante isolamento, containers compartilham kernel; vulnerabilidades no kernel podem afetar múltiplos containers.
+- Estado persistente: containers são ideais para aplicações stateless; para estado persistente (dados, bancos), é preciso usar volumes, armazenamento externo, etc.
+- Complexidade adicional se usar orquestração (ex: Kubernetes) — exige conhecimento, configuração de rede, monitoramento, logs, políticas de segurança.
+- Custo de aprendizado e configuração inicial, se não houver experiência prévia.
+
+---
+
+## Azure Functions
+
+**O que é**
+
+Azure Functions é o serviço *serverless* do Azure para executar código acionado por eventos, sem que você precise gerenciar servidores ou infraestrutura subjacente. 
+**Principais características**
+
+- Tem suporte a várias linguagens (C#, JavaScript, Python, Java, PowerShell etc.). 
+- Usa gatilhos (“triggers”) e vinculações (“bindings”) para reagir a eventos de Azure ou externos: por exemplo, triggers HTTP, de armazenamento (blob/queue), de timers, Service Bus, etc. 
+- Modelos de hospedagem variáveis: plano de consumo (pay-per-use), plano premium, ou dentro de um App Service Plan, ou até com contêineres. 
+- Escalabilidade automática: o serviço escala conforme a demanda (mais instâncias, execução paralela etc.), quando aplicável.
+
+**Vantagens**
+
+- Custos podem ser muito menores para workloads esporádicos ou picos: paga-se pelo que usa.
+- Simplicidade operacional: menos infraestrutura para gerenciar, menos configuração de servidores, patch, etc. 
+- Agilidade, ótimo para tarefas pequenas, automações, eventos, processamento em tempo real.
+
+**Desvantagens / limitações**
+
+- Pode haver “cold start” (latência inicial quando a função não está “ativa/quente”) dependendo do plano. Planos mais simples têm esse problema.
+- Limites de tempo de execução para funções “normais” (não-duráveis) em alguns planos. Tarefas que demoram muito ou precisam de estado complexo podem exigir outras abordagens (por exemplo, *Durable Functions*). 
+- Para cargas constantes e pesadas, ou aplicações que exigem muita customização ou controle sobre ambiente, pode sair mais caro ou ter menos flexibilidade se comparado a outras opções.
+
+---
+
+## Azure App Service (Serviços de Aplicativo do Azure)
+
+- **Azure Virtual Network (VNet)**:
+    - Conecta recursos do Azure entre si, à internet ou a redes locais.
+    - Suporte a **endereços públicos e privados**.
+    - Sub-redes e emparelhamento de redes privadas.
+- **Gateway de VPN**:
+    - Conecta redes locais ao Azure pela internet de forma segura e criptografada.
+- **ExpressRoute**:
+    - Conexão privada entre redes locais e o Azure via provedor.
+    - Menor latência e maior confiabilidade que a VPN.
+- **DNS do Azure**:
+    - Gerenciamento de nomes de domínio internos e externos.
+    - Usa rede Anycast global para confiabilidade.
+    - Permite nomes de domínio privados customizados.
+
+---
