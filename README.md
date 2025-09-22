@@ -274,3 +274,90 @@ Azure Functions é o serviço *serverless* do Azure para executar código aciona
     - Permite nomes de domínio privados customizados.
 
 ---
+
+### **Contas de Armazenamento**
+
+Uma conta de armazenamento é a porta de entrada para usar os serviços de armazenamento do Azure.
+
+- Deve ter um **nome globalmente único** para evitar conflitos, pois é acessível via internet.
+- Permite definir quais serviços de armazenamento estarão disponíveis e quais opções de redundância serão aplicadas.
+- É nessa conta que se configuram permissões, acessos e políticas de segurança.
+
+---
+
+### **Redundância de Armazenamento**
+
+A redundância é o mecanismo que garante a **alta disponibilidade e a durabilidade** dos dados, mesmo em caso de falhas de hardware ou desastres.
+
+Alguns exemplos:
+
+- **LRS (Locally Redundant Storage)**
+    - Mantém cópias dentro do mesmo datacenter;
+    - Datacenter individual na região primária.
+- **ZRS (Zone-Redundant Storage)**
+    - Três zonas de disponibilidade na região primária.
+- **GRS (Geo-Redundant Storage)**
+    - Replica os dados em outra região geográfica;
+    - Datacenter único no primário e região secundária.
+- **RA-GRS (Read-Access GRS)**: permite leitura mesmo quando a região principal está fora do ar.
+    
+    Essa escolha impacta diretamente no custo e na confiabilidade.
+    
+    | Tipo de Redundância | Replicação | Proteção contra falha regional? | Latência |
+    | --- | --- | --- | --- |
+    | **LRS** (Locally Redundant) | 3 cópias em **um** datacenter | ❌ Não | 🔵 Baixa |
+    | **ZRS** (Zone-Redundant) | 3 cópias em **zonas da mesma região** | ❌ Não (só dentro da região) | 🔵 Baixa |
+    | **GRS** (Geo-Redundant) | 6 cópias (3 na região primária + 3 em outra região) | ✅ Sim | 🟠 Maior para acesso secundário |
+    | **RA-GRS** (Read-Access GRS) | Igual ao GRS, mas com leitura no secundário | ✅ Sim | 🟠 Maior |
+
+---
+
+### **Serviços de Armazenamento do Azure**
+
+Cada serviço foi criado para um tipo específico de dado ou aplicação:
+
+- **Blob Storage**: armazena grandes volumes de dados **não estruturados**, como vídeos, imagens, backups e arquivos de log. É ideal para conteúdo acessado via internet.
+- **Disco do Azure**: fornece discos virtuais para máquinas virtuais, bancos de dados ou aplicativos que precisam de armazenamento permanente e rápido.
+- **Fila (Queue)**: permite o envio e armazenamento de mensagens para comunicação entre sistemas, útil para aplicativos distribuídos que processam grandes volumes de mensagens.
+- **Arquivos (File)**: cria um compartilhamento de arquivos de rede acessível por protocolo SMB, permitindo integração com sistemas Windows, Linux ou macOS.
+- **Tabelas (Table)**: oferece armazenamento de dados estruturados no estilo NoSQL, ideal para aplicações que exigem escalabilidade sem estrutura fixa.
+
+---
+
+### **Camadas de Acesso**
+
+O Azure permite escolher **camadas de acesso** que ajustam preço e desempenho conforme a frequência de uso dos dados:
+
+- **Frequente (Hot)**: para dados acessados com frequência, com maior custo de armazenamento, mas menor custo de leitura.
+- **Esporádico (Cool)**: para dados acessados ocasionalmente, com custo mais baixo para armazenar, mas mais caro para acessar.
+- **Frio**: para dados acessados com pouca frequência e armazenado por pelo menos 90 dias.
+- **Archive**: para dados raramente acessados (arquivos históricos, backups), com o menor custo de armazenamento, porém com maior tempo e custo de recuperação.
+
+---
+
+### **Migrações para o Azure**
+
+Esse tópico aborda as ferramentas e estratégias para **mover dados de outros ambientes para o Azure**:
+
+- **Plataforma de migração unificada**: reúne diferentes soluções de avaliação e migração em um só lugar.
+- **Migrações para Azure**: serviços e ferramentas que ajudam a avaliar, planejar e executar a movimentação de grandes volumes de dados.
+
+---
+
+### **Azure Data Box**
+
+O **Azure Data Box** é uma solução física para transferir grandes quantidades de dados (até 80 TB) para o Azure quando a conexão de internet é lenta ou inexistente.
+
+- O cliente recebe uma caixa segura para copiar seus dados localmente.
+- A caixa é então devolvida à Microsoft, que carrega os dados diretamente no Azure.
+- Ideal para migrações de backup ou quando há necessidade de conformidade regulatória.
+
+---
+
+### **Opções de Gerenciamento de Arquivos**
+
+Ferramentas que facilitam o controle, a movimentação e a sincronização de arquivos:
+
+- **AzCopy**: utilitário de linha de comando para copiar dados de ou para uma conta de armazenamento. Funciona em uma única direção e é ideal para automações.
+- **Gerenciador de Armazenamento do Azure**: ferramenta gráfica parecida com o Windows Explorer, disponível para Windows, Linux e macOS, que permite gerenciar arquivos de forma visual.
+- **Sincronização de Arquivos do Azure**: mantém arquivos sincronizados entre servidores locais e o Azure. Permite que apenas os arquivos mais acessados fiquem localmente, economizando espaço.
