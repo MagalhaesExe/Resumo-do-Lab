@@ -361,3 +361,110 @@ Ferramentas que facilitam o controle, a movimentação e a sincronização de ar
 - **AzCopy**: utilitário de linha de comando para copiar dados de ou para uma conta de armazenamento. Funciona em uma única direção e é ideal para automações.
 - **Gerenciador de Armazenamento do Azure**: ferramenta gráfica parecida com o Windows Explorer, disponível para Windows, Linux e macOS, que permite gerenciar arquivos de forma visual.
 - **Sincronização de Arquivos do Azure**: mantém arquivos sincronizados entre servidores locais e o Azure. Permite que apenas os arquivos mais acessados fiquem localmente, economizando espaço.
+
+---
+
+## 🔑 **Identidade, Acesso e Segurança**
+
+O Azure oferece um conjunto de serviços para garantir que apenas **usuários e dispositivos confiáveis** possam acessar recursos, além de permitir um **gerenciamento centralizado** de permissões.
+
+### **Microsoft Entra ID**
+
+- É a solução de **Identity and Access Management (IAM)** baseada em nuvem da Microsoft.
+- Permite criar **usuários, grupos e políticas de segurança**, integrando-se a aplicativos SaaS (ex.: Office 365, Salesforce).
+- Funcionalidades principais:
+    - **Autenticação**: garante que apenas usuários legítimos acessem os recursos.
+    - **Logon Único (SSO)**: um único login para acessar vários serviços (como Teams, Outlook e SharePoint).
+    - **Gerenciamento de aplicativos**: controle de acesso a aplicativos internos ou externos.
+    - **Gerenciamento de dispositivos**: registro e monitoramento de dispositivos que acessam a rede.
+    - **Colaboração B2B**: convida parceiros e fornecedores externos para trabalhar com segurança em ambientes compartilhados.
+- **Exemplo**: uma empresa pode integrar seu Active Directory local ao Entra ID para permitir autenticação híbrida entre o data center e a nuvem.
+
+---
+
+### **Microsoft Entra Domain Services**
+
+- Fornece **serviços de domínio** (como ingressar máquinas em domínio, autenticação Kerberos/NTLM e políticas de grupo) **sem precisar de controladores de domínio físicos**.
+- Ideal para **aplicações legadas** que não suportam autenticação moderna.
+- **Exemplo**: migrar um sistema antigo que depende de LDAP para a nuvem sem reescrever o código.
+
+---
+
+### **Métodos de Autenticação**
+
+1. **SSO (Single Sign-On)**
+    - Usuários fazem login **uma única vez** e acessam múltiplos aplicativos sem inserir credenciais repetidamente.
+    - Reduz risco de phishing, pois há menos logins.
+2. **MFA (Multi-Factor Authentication)**
+    - Requer **dois ou mais fatores**:
+        - Algo que você **sabe** (senha, PIN).
+        - Algo que você **possui** (token, celular, aplicativo Microsoft Authenticator).
+        - Algo que você **é** (biometria como impressão digital ou reconhecimento facial).
+    - **Exemplo**: login no portal do Azure pedindo senha + código no celular.
+3. **Autenticação sem senha**
+    - Usa métodos como **Windows Hello**, **chaves de segurança FIDO2** ou aplicativo Authenticator para evitar senhas.
+
+---
+
+### **Identidades Externas (B2B e B2C)**
+
+- **B2B (Business to Business)**: permite colaboração com **parceiros externos** sem necessidade de criar contas internas.
+- **B2C (Business to Consumer)**: permite que **clientes** façam login em aplicativos usando suas contas sociais (Google, Facebook, etc.).
+
+---
+
+### **Acesso Condicional**
+
+- Cria **políticas automáticas** para determinar **quando e como** os usuários podem acessar recursos.
+- Fatores considerados:
+    - Localização geográfica (ex.: bloqueio de logins de países suspeitos).
+    - Tipo de dispositivo (ex.: permitir apenas dispositivos corporativos).
+    - Detecção de risco (ex.: bloquear login em caso de atividade incomum).
+- **Exemplo**: exigir MFA apenas para logins fora da rede corporativa.
+
+---
+
+### **Controle de Acesso Baseado em Função (RBAC)**
+
+- Permite **atribuir permissões específicas** para cada função ou grupo.
+- Princípio de **menor privilégio**: usuários recebem **apenas o acesso necessário** para realizar suas tarefas.
+- Funções comuns:
+    - **Owner (Proprietário)**: controle total dos recursos.
+    - **Contributor (Colaborador)**: cria e gerencia recursos, mas não gerencia permissões.
+    - **Reader (Leitor)**: apenas leitura dos recursos.
+
+---
+
+### **Confiança Zero (Zero Trust)**
+
+- **Princípio**: nunca confiar automaticamente em nenhum usuário, dispositivo ou rede, **mesmo que já esteja dentro da organização**.
+- Cada requisição deve ser autenticada, autorizada e validada em tempo real.
+- Componentes principais:
+    - **Verificar explicitamente** cada acesso.
+    - **Usar o menor privilégio possível**.
+    - **Assumir violação** (monitorar continuamente).
+
+---
+
+### **Defesa em Profundidade**
+
+- Modelo de **segurança em camadas** para proteger ambientes de TI.
+- Camadas típicas:
+    1. **Perímetro** (firewalls, proteção DDoS).
+    2. **Rede** (segmentação, criptografia).
+    3. **Computação** (patches, antivírus).
+    4. **Aplicações** (validação de entrada, segurança de APIs).
+    5. **Dados** (criptografia, backup).
+- **Benefício**: mesmo que uma camada seja violada, as demais continuam protegendo.
+
+---
+
+### **Microsoft Defender para Nuvem**
+
+- Serviço de **monitoramento de segurança** que protege recursos em **Azure, ambientes híbridos e multi-nuvem**.
+- Principais recursos:
+    - **Recomendações de segurança** para corrigir vulnerabilidades.
+    - **Detecção e bloqueio de malware** em tempo real.
+    - **Controle de acesso Just-in-Time (JIT)**: abre portas de rede apenas quando necessário.
+    - Integração com **Azure Policy** para automatizar conformidade.
+- **Exemplo**: detectar atividades suspeitas em uma VM e aplicar correções automáticas.
