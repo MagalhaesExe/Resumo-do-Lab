@@ -468,3 +468,97 @@ O Azure oferece um conjunto de serviços para garantir que apenas **usuários e 
     - **Controle de acesso Just-in-Time (JIT)**: abre portas de rede apenas quando necessário.
     - Integração com **Azure Policy** para automatizar conformidade.
 - **Exemplo**: detectar atividades suspeitas em uma VM e aplicar correções automáticas.
+
+--- 
+
+## Gerenciamento de Custos
+
+O foco é como controlar, prever e otimizar custos e como organizar recursos para governança e cobrança no Azure. Conceitos-chave: **fatores que influenciam custo**, **Calculadora de Preços**, **Calculadora TCO**, **Azure Marketplace**, **Ferramentas de Gerenciamento de Custos (budgets, alertas, recomendações)** e **tags (marcas)**.
+
+### Fatores que afetam os custos (explicação e impacto)
+
+Principais fatores e por que importam:
+
+- **Região (data center):** preços variam por região — latência, custos operacionais e disponibilidade de serviços mudam o valor.
+- **Tipo e tamanho do recurso:** VMs (CPU/RAM), tipos de disco (HDD vs SSD), IOPS, e tipos de instância (spot/reserved) alteram o preço.
+- **Uso/tempo de execução:** recursos cobrados por hora ou por segundo; escalonamento automático (autoscale) pode reduzir/elevar custos conforme demanda.
+- **Tráfego de rede (egresso):** saída de dados da nuvem geralmente é cobrada; arquiteturas que transferem muitos dados aumentam custo.
+- **Redundância e SLA:** optar por zonas de disponibilidade, regiões emparelhadas ou redundância geográfica aumenta custo.
+- **Licenciamento e softwares adicionais:** licenças embarcadas (ex.: SQL Server) ou BYOL (bring your own license) mudam o custo.
+- **Opções de compra:** preços sob demanda vs. **Reserved Instances** / **Savings Plans** / VMs Spot. Reservas reduzem custo se o uso for previsível.
+- **Planos de suporte e contratos:** suporte pago (Standard/Professional Direct) agrega custo mensal/porcentagem.
+
+**Implicação prática:** ao estimar custos, liste todas as decisões arquiteturais acima — cada escolha tem trade-offs entre preço, desempenho e disponibilidade.
+
+### Azure Marketplace
+
+O Azure Marketplace é um catálogo onde clientes encontram, testam, compram e provisionam soluções de fornecedores (imagens de VM, containers, SaaS, ferramentas de devops etc.). Uso típico:
+
+- Encontrar imagens pré-configuradas (VM + software).
+- Provisionar soluções de terceiros com faturamento consolidado.
+- Permite acelerar projetos com padrões prontos (há milhares de ofertas).
+
+Boas práticas: verificar modelo de cobrança do marketplace (licença inclusa ou separada), revisar SLAs do provedor e testar em ambiente de desenvolvimento antes de produção.
+
+### Calculadora de Preços (Price Calculator)
+
+O que faz: ajuda a **estimar** o custo de combinações de serviços antes do consumo real. Permite configurar opções por recurso (região, tamanho, camadas, horas, suporte, ofertas de dev/test).
+
+Como usar (passos práticos):
+
+1. Escolher serviços (ex.: Virtual Machines, Storage, Bandwidth).
+2. Configurar região, tamanho/sku, e quantidades.
+3. Ajustar horas previstas de uso (por ex., 24h x dias do mês).
+4. Aplicar descontos previstos (reservas) ou promoções.
+5. Exportar estimativa (CSV/PDF) para apresentar ao time financeiro.
+
+Observação: **é uma estimativa** — custos reais dependem do uso real e de variações como transferência de dados e snapshots.
+
+### Calculadora TCO (Total Cost of Ownership)
+
+Propósito: comparar o custo atual de infraestrutura on-premises com o custo esperado se migrar para Azure — inclui servidores, licenças, manutenção, energia, espaço físico, pessoas.
+
+O relatório TCO fornece estimativa de economia potencial e destaca áreas de economia (ex.: consolidação de servidores, redução de custo operacional).
+
+Como interpretar: verifique premissas (nº de máquinas, CPU, RAM, utilização). TCO é útil para justificar migrações para a diretoria, mas depende muito da qualidade dos dados de entrada.
+
+### Ferramenta de Gerenciamento de Custos do Azure (Cost Management + Billing)
+
+Funcionalidades essenciais:
+
+- **Análise de custos (Cost analysis):** visualizar gastos por período, por recurso, por tag, por grupo de recursos ou por assinatura.
+- **Orçamentos (Budgets):** criar valores máximos e gatilhos (por ex., 80% do orçamento) e iniciar ações (emails, webhooks).
+- **Alertas:** notificar equipes quando gastos atingem thresholds.
+- **Recomendações de custo (Cost recommendations):** sugerem direitos de dimensionamento (rightsizing), compra de reservas, desligamento de recursos inativos.
+- **Relatórios de cobrança & enriquecimento de dados:** exportar faturas, logs e integrar com BI/ERP.
+
+Dica prática: combine **tags** com Cost Analysis para chargeback/showback por projeto ou centro de custo.
+
+### Marcas (Tags) — organização e cobrança
+
+O que são: pares **nome:valor** aplicados a recursos do Azure para categorizar (ex.: `env:prod`, `costCenter:CC123`, `owner:fulano`). Úteis para filtrar relatórios e agrupar custos.
+
+Boas práticas:
+
+- Defina uma **taxonomia** (nomenclatura padrão) antes de aplicar.
+- Use tags para **ambiente**, **projeto**, **centro de custo**, **dono**.
+- **Implemente Azure Policy** para obrigar tags na criação de recursos.
+- Não coloque dados sensíveis (PII) nas tags.
+- Limite número de tags relevantes e as padronize (ex.: `Environment` em vez de `env` misturado).
+
+Observação: tags não são herdadas automaticamente por sub-resources — planeje aplicação via templates/automation.
+
+### Relatórios, exportação e integração
+
+- **Exports**: exporte faturas e uso em arquivos CSV/JSON para análises externas.
+- **APIs**: integração programática permite automação de relatórios e integração com sistemas financeiros.
+- **Enriquecimento de dados**: adicionar campos contextuais (tags, propriedades) para relatórios mais úteis.
+
+### Recomendações operacionais e de governança
+
+- **Defina escopos de cobrança** (cada subscription para ambiente / projeto).
+- **Use management groups** para hierarquizar políticas e controles.
+- **Políticas (Azure Policy)**: impor naming conventions, exigir tags, bloquear SKUs caros.
+- **Automação**: shutdown programado de VMs de dev/test fora do horário para economizar.
+- **Reservas e Savings Plans**: avaliar se o padrão de uso justifica compra antecipada.
+- **Monitoramento contínuo**: dashboards de custo e alertas configurados com threshold razoáveis.
