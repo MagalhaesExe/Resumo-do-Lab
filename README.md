@@ -55,63 +55,63 @@ A **computação em nuvem (cloud computing)** é o modelo de uso de recursos de 
 - 🛠️ **Atualizações automáticas** → softwares e plataformas são mantidos atualizados pelo provedor  
 - 📊 **Análise de dados avançada** → integração com serviços de Big Data e IA  
 
-# 🏗️ Componentes de Arquitetura do Azure
+## 🏗️ Componentes de Arquitetura do Azure
 
-## 1. Regiões
+### 1. Regiões
 - Conjuntos de datacenters implantados em uma área geográfica específica.  
 - Mais de **60 regiões globais** cobrindo mais de 140 países.  
 - Reduzem **latência**, preservam a **residência dos dados** e permitem **escalabilidade**.  
 
 ---
 
-## 2. Zonas de Disponibilidade
+### 2. Zonas de Disponibilidade
 - **Datacenters independentes** dentro de uma região, com energia, rede e refrigeração próprias.  
 - Interligados por **rede de fibra óptica privada**.  
 - Garantem **alta disponibilidade** e **tolerância a falhas**.  
 
 ---
 
-## 3. Pares de Regiões
+### 3. Pares de Regiões
 - Regiões sempre são **emparelhadas** (mínimo **300 milhas de distância**).  
 - Permitem **replicação automática**, **recuperação priorizada** e **atualizações sequenciais**.  
 
 ---
 
-## 4. Regiões Soberanas
+### 4. Regiões Soberanas
 - Exemplo: **Azure Government (EUA)**.  
 - **Isoladas fisicamente** do Azure público.  
 - Foco em **conformidade legal** e **segurança crítica**.  
 
 ---
 
-## 5. Recursos do Azure
+### 5. Recursos do Azure
 - Unidades fundamentais como **VMs, armazenamento, redes e serviços de aplicação**.  
 - São os **blocos básicos** para criar soluções em nuvem.  
 
 ---
 
-## 6. Grupos de Recursos
+### 6. Grupos de Recursos
 - **Contêineres lógicos** para organizar e gerenciar recursos.  
 - Um recurso só pode estar em **um grupo por vez**, mas grupos podem conter recursos de várias regiões.  
 - Facilitam **monitoramento, políticas e controle de acesso**.  
 
 ---
 
-## 7. Assinaturas do Azure
+### 7. Assinaturas do Azure
 - Delimitam **escopo de cobrança e permissões**.  
 - Permitem **relatórios de faturamento separados** e **controle de acesso granular**.  
 - Exemplo: uma assinatura para **produção** e outra para **testes**.  
 
 ---
 
-## 8. Grupos de Gerenciamento
+### 8. Grupos de Gerenciamento
 - Camada **acima das assinaturas**.  
 - Permitem aplicar **políticas e segurança** em várias assinaturas ao mesmo tempo.  
 - Muito usados por **grandes empresas e multinacionais**.  
 
 ---
 
-## 📌 Estrutura Hierárquica do Azure
+### 📌 Estrutura Hierárquica do Azure
 1. **Recursos** →  
 2. **Grupos de Recursos** →  
 3. **Assinaturas** →  
@@ -146,7 +146,7 @@ Ele é usado para garantir alta disponibilidade de aplicações, atendendo ao SL
 
 ---
 
-## Como funciona: domínios de falha e domínios de atualização
+### Como funciona: domínios de falha e domínios de atualização
 
 Dois conceitos centrais no Availability Set:
 
@@ -677,3 +677,92 @@ Governança no Azure é o conjunto de políticas, processos e controles que gara
 3. Criar um **blueprint** simples que defina um resource group + policy + role assignment e atribuí-lo a uma subscription.
 4. No **Microsoft Purview**, configure um scan para um storage account (ou simule via demo) e analise categorias classificadas automaticamente.
 5. Consultar o **Portal de Confiança** para localizar um relatório SOC ou ISO relacionado a um serviço Azure.
+
+---
+
+## Ferramentas de Gerenciamento e Implantação
+### Objetivo do módulo
+
+Conhecer as principais opções para interagir com o Azure, garantindo:
+
+- **Flexibilidade**: múltiplos modos de gerenciamento.
+- **Consistência**: implantações repetíveis e controladas.
+- **Escalabilidade**: gerenciar grandes ambientes com automação.
+
+---
+
+### Ferramentas de gerenciamento e implantação
+
+#### a) **Portal do Azure**
+
+- **Interface web** (https://portal.azure.com) para criar, configurar e monitorar recursos.
+- Ideal para **iniciantes**, operações únicas ou quando é preciso **visualização gráfica**.
+- Recursos:
+    - Dashboards personalizáveis.
+    - Assistentes (wizards) para criar VMs, redes, etc.
+    - Integração com Azure Marketplace.
+
+➡️ **Quando usar**: criação rápida de recursos, gerenciamento visual, operações administrativas do dia a dia.
+
+---
+
+#### b) **Azure Cloud Shell**
+
+- Ambiente de **linha de comando** acessível pelo navegador, integrado ao portal.
+- Permite usar **Azure CLI** ou **Azure PowerShell** sem instalar nada localmente.
+- Possui armazenamento persistente para scripts.
+
+➡️ **Quando usar**: administração via navegador, automação leve, sem necessidade de configurar ambiente local.
+
+---
+
+#### c) **Azure CLI**
+
+- Ferramenta de linha de comando multiplataforma (Windows, Linux, macOS).
+- Sintaxe simples baseada em comandos (`az`).
+- Ideal para **automação via scripts** e **integração em pipelines** (DevOps).
+
+---
+
+#### d) **Azure PowerShell**
+
+- Módulos do PowerShell para gerenciar recursos Azure.
+- Baseado em *cmdlets* (`New-AzResourceGroup`, `New-AzVM`).
+- Preferido em ambientes Windows ou quando já existe familiaridade com PowerShell.
+
+---
+
+#### e) **Azure Arc**
+
+- Permite **gerenciar recursos fora do Azure** (on-premises ou outras nuvens) a partir do mesmo painel do Azure.
+- Recursos habilitados pelo Arc podem receber **policies**, **monitoramento**, **RBAC** e outros serviços Azure.
+
+➡️ **Use quando**: precisa governar e monitorar servidores locais, Kubernetes ou bancos de dados em múltiplas nuvens.
+
+---
+
+### Azure Resource Manager (ARM)
+
+- **Camada de gerenciamento** do Azure que processa todas as solicitações de criação/alteração/exclusão de recursos.
+- **Modelo de implantação baseado em grupos de recursos**:
+    - Recursos relacionados são agrupados para provisionamento, monitoramento e gerenciamento em conjunto.
+- Suporta **controle de acesso (RBAC)**, **tags**, **policies** e **templates**.
+
+➡️ **Vantagem**: consistência e orquestração — cada operação é tratada como transação, garantindo integridade.
+
+---
+
+### Infraestrutura como Código (IaC)
+
+Permite **definir a infraestrutura em arquivos declarativos**, que podem ser versionados, auditados e implantados repetidamente.
+
+### **Modelos ARM (ARM Templates)**
+
+- Arquivos **JSON** que descrevem recursos, dependências e parâmetros.
+- **Características**:
+    - Sintaxe **declarativa**: descreve o estado desejado, não a sequência de comandos.
+    - **Resultados repetíveis**: garante mesma configuração a cada implantação.
+    - **Orquestração**: gerencia dependências automaticamente.
+    - **Validação integrada** antes da criação.
+    - **Exportável**: possível gerar template a partir de um recurso existente no portal.
+
