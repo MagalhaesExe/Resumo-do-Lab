@@ -562,3 +562,118 @@ Observação: tags não são herdadas automaticamente por sub-resources — plan
 - **Automação**: shutdown programado de VMs de dev/test fora do horário para economizar.
 - **Reservas e Savings Plans**: avaliar se o padrão de uso justifica compra antecipada.
 - **Monitoramento contínuo**: dashboards de custo e alertas configurados com threshold razoáveis.
+
+ ---
+
+## Governança e Conformidade
+
+### Visão geral — objetivo
+
+Governança no Azure é o conjunto de políticas, processos e controles que garantem que os recursos na nuvem sejam criados, configurados e gerenciados conforme regras da organização (segurança, conformidade, custo, operações). Os principais instrumentos que você precisa conhecer:
+
+- **Azure Policy** (impor padrões e avaliar conformidade).
+- **Bloqueios de recurso** (proteger contra exclusão/modificação acidental).
+- **Azure Blueprints** (pacotes repetíveis para implantar ambientes conformes).
+- **Portal de Confiança do Serviço** (documentação e relatórios de conformidade).
+- **Microsoft Purview** (governança e classificação de dados).
+
+---
+
+### Azure Policy — o que é e como usar
+
+**O que é:** ferramenta para impor padrões em larga escala e avaliar conformidade de recursos (por exemplo: exigir tags, bloquear SKUs, exigir que recursos fiquem em determinadas regiões).
+
+**Componentes:**
+
+- **Policy definition**: regra individual (JSON) que descreve o que é permitido/proibido.
+- **Initiative / Policy Set**: conjunto de policies agrupadas para facilitar atribuição.
+- **Assignment**: aplicar uma policy/initiative a um escopo (subscription, resource group, management group, recurso).
+- **Effects**: `Deny`, `Audit`, `Append`, `Modify`, `DeployIfNotExists`, `Disabled` (comportamentos que a policy pode executar/registrar).
+
+**Casos práticos:** exigir `tag: costCenter`, negar criação de VMs em SKU X, auditar databases sem criptografia.
+
+---
+
+### Bloqueios de recurso (Resource Locks)
+
+**O que fazem:** evitam exclusão ou alterações acidentais em recursos críticos. Aplicáveis ao nível de subscription, resource group ou recurso.
+
+**Tipos:**
+
+- **CanNotDelete** — recurso não pode ser deletado (mas pode ser modificado).
+- **ReadOnly** — impede alterações (equivalente a “somente leitura”: não é possível excluir nem alterar).
+
+---
+
+### Azure Blueprints
+
+**O que é:** mecanismo para empacotar e implantar de forma repetível um conjunto de artefatos necessários para um ambiente conformado. Pense em Blueprint como *template de governança + deploy*.
+
+**Artefatos típicos:**
+
+- Role assignments (RBAC)
+- Policy assignments
+- ARM templates (recursos a serem criados)
+- Resource groups
+
+**Vantagem:** versionamento de pacotes, aplicação consistente em múltiplas subscriptions, acelera provisionamento de ambientes conformes.
+
+**Quando usar:** criar padrões para *environments* (dev/test/prod) com políticas, roles e recursos pré-configurados.
+
+---
+
+### Microsoft Purview (governança de dados)
+
+**O que é:** solução para governança de dados corporativos — descoberta, classificação, catálogo e linhagem de dados em ambientes on-premises e multi-cloud.
+
+**Funcionalidades chave:**
+
+- Varredura/scan de fontes (storage, DBs, SaaS).
+- **Classificação automática** de dados sensíveis (PII, números de cartão, etc.).
+- **Data lineage** (quem/que transformou o dado ao longo do tempo).
+- Catálogo unificado e glossário de negócios.
+
+**Caso prático:** executar scan em um storage account e aplicar política de classificação para identificar arquivos que contenham números de CPF.
+
+---
+
+### Portal de Confiança do Serviço (Service Trust / Microsoft Trust Center)
+
+**O que fornece:** documentação, relatórios de auditoria (SOC, ISO), guias de conformidade e informações sobre segurança e privacidade do Azure — útil para comprovar conformidade em auditorias e para due diligence.
+
+**Uso prático:** baixar relatórios de auditoria, consultar escopos de conformidade por região e para serviços específicos
+
+---
+
+### Padrões e boas práticas de governança
+
+- **Hierarquia:** use *management groups* → *subscriptions* → *resource groups* para organizar políticas e delegação.
+- **RBAC** para controlar quem pode fazer o quê (funções built-in ou custom).
+- **Policies** para controlar o quê pode ser criado/como configurado.
+- **Tags** para chargeback/showback e relatórios de custo.
+- **Locks** para proteger recursos críticos.
+- **Blueprints** para implantar ambientes padronizados.
+- **Automação**: desligamento automático de VMs de dev/test, scripts para aplicar tags, policy remediation.
+- **Monitoramento & Cost Management**: dashboards e budgets para evitar surpresas.
+
+**Regra prática simples:** RBAC = *quem*, Policy = *o que/como*, Locks = *impedir exclusão/modificação*, Blueprints = *empacotar e implantar padrão*.
+
+---
+
+### Comparativo rápido (útil para prova)
+
+- **RBAC**: controla permissões (ex.: usuário pode criar VMs).
+- **Azure Policy**: impõe regras em recursos (ex.: impedir criação de VMs em regiões não permitidas).
+- **Resource Lock**: evita remoção/alteração acidental.
+- **Blueprint**: modelo completo (resources + policies + roles) para implantar ambiente.
+- **Management Group**: organiza subscriptions em tiers para aplicar políticas/controle centralizado.
+
+---
+
+### Hands-on sugeridos (passo a passo curto)
+
+1. Criar uma **policy** que exige tag `project` e atribuí-la a uma subscription; testar criando recurso sem tag (deve ser `Deny`/`Audit`).
+2. Criar um **resource group** e aplicar um **lock CanNotDelete**; tente excluir o RG (falhará) e remova o lock para permitir exclusão.
+3. Criar um **blueprint** simples que defina um resource group + policy + role assignment e atribuí-lo a uma subscription.
+4. No **Microsoft Purview**, configure um scan para um storage account (ou simule via demo) e analise categorias classificadas automaticamente.
+5. Consultar o **Portal de Confiança** para localizar um relatório SOC ou ISO relacionado a um serviço Azure.
