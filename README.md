@@ -766,3 +766,39 @@ Permite **definir a infraestrutura em arquivos declarativos**, que podem ser ver
     - **Validação integrada** antes da criação.
     - **Exportável**: possível gerar template a partir de um recurso existente no portal.
 
+---
+## Ferramentas de Monitoramento do Azure
+### Assistente do Azure
+
+- Analisa recursos implantados no Azure.
+- Faz recomendações com base em **boas práticas** para otimizar implantações.
+- Abrange cinco áreas principais:
+    - **Confiabilidade** – aumenta a resiliência das soluções.
+    - **Segurança** – identifica riscos e sugere melhorias.
+    - **Desempenho** – recomendações para melhor eficiência.
+    - **Custo** – aponta maneiras de reduzir gastos.
+    - **Excelência operacional** – boas práticas de governança e operação.
+
+---
+
+### Integridade do Serviço do Azure
+
+Coleção de serviços que mantém o usuário informado sobre o **status do Azure** em diferentes níveis:
+
+- **Status do Azure** – visão global da integridade de todos os serviços em todas as regiões.
+- **Integridade do Serviço** – mostra apenas os serviços/regiões que você realmente usa.
+- **Resource Health** – exibição personalizada da integridade de recursos específicos (ex.: VM, banco de dados).
+
+---
+
+### Azure Monitor
+
+Plataforma que coleta, analisa e toma decisões com base em **telemetria** de nuvem e ambientes locais.
+
+Objetivo: **maximizar disponibilidade e desempenho de aplicativos e serviços**.
+
+Principais componentes:
+
+- **Azure Log Analytics** – análise avançada de logs.
+- **Alertas do Azure Monitor** – notificações proativas sobre problemas ou mudanças relevantes.
+- **Application Insights** – monitoramento detalhado de desempenho de aplicações.
